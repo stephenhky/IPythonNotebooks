@@ -1,0 +1,24 @@
+> summary(lmodel)
+
+Call:
+glm(formula = Y ~ X1 + X2, family = "binomial", data = df)
+
+Deviance Residuals:
+    Min       1Q   Median       3Q      Max
+-1.6808  -0.6472   0.2245   0.5457   2.3874
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)   0.2621     0.4006   0.654 0.512910
+X1            0.3340     0.1578   2.116 0.034326 *
+X2           -0.6718     0.1832  -3.666 0.000246 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 68.994  on 49  degrees of freedom
+Residual deviance: 40.805  on 47  degrees of freedom
+AIC: 46.805
+
+Number of Fisher Scoring iterations: 5
