@@ -1,0 +1,19 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module ndarraytest ! in 
+    interface  ! in :ndarraytest
+        module ndarraytest ! in :ndarraytest:ndarraytest.f90
+            function test_matmul(m,n,a,x) result (b) ! in :ndarraytest:ndarraytest.f90:ndarraytest
+                integer, optional,intent(in),check(shape(a,0)==m),depend(a) :: m=shape(a,0)
+                integer, optional,intent(in),check(shape(a,1)==n),depend(a) :: n=shape(a,1)
+                complex dimension(m,n),intent(in) :: a
+                complex dimension(n),intent(in),depend(n) :: x
+                complex dimension(m) :: b
+            end function test_matmul
+        end module ndarraytest
+    end interface 
+end python module ndarraytest
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
