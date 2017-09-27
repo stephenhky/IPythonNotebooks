@@ -1,11 +1,11 @@
 module ndarraytest
 implicit none
 private
-public test_matmul
+public test_matmul, test_matmul2
 
 contains
 
-function test_matmul(m, n, A, x) result(b)
+function test_matmul(A, x, m, n) result(b)
   integer, intent(in) :: m, n
   complex, dimension(m, n), intent(in) :: A
   complex, dimension(n), intent(in) :: x
@@ -14,6 +14,16 @@ function test_matmul(m, n, A, x) result(b)
   b = matmul(A, x)
   
 end function test_matmul
+
+function test_matmul2(A, x) result(b)
+  complex, dimension(:, :), intent(in) :: A
+  complex, dimension(:), intent(in) :: x
+  complex, dimension(:) :: b
+
+  b = matmul(A, x)
+  
+end function test_matmul2
+
 
 end module
 

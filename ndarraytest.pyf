@@ -4,13 +4,18 @@
 python module ndarraytest ! in 
     interface  ! in :ndarraytest
         module ndarraytest ! in :ndarraytest:ndarraytest.f90
-            function test_matmul(m,n,a,x) result (b) ! in :ndarraytest:ndarraytest.f90:ndarraytest
-                integer, optional,intent(in),check(shape(a,0)==m),depend(a) :: m=shape(a,0)
-                integer, optional,intent(in),check(shape(a,1)==n),depend(a) :: n=shape(a,1)
+            function test_matmul(a,x,m,n) result (b) ! in :ndarraytest:ndarraytest.f90:ndarraytest
                 complex dimension(m,n),intent(in) :: a
                 complex dimension(n),intent(in),depend(n) :: x
+                integer, optional,intent(in),check(shape(a,0)==m),depend(a) :: m=shape(a,0)
+                integer, optional,intent(in),check(shape(a,1)==n),depend(a) :: n=shape(a,1)
                 complex dimension(m) :: b
             end function test_matmul
+            function test_matmul2(a,x) result (b) ! in :ndarraytest:ndarraytest.f90:ndarraytest
+                complex dimension(:,:),intent(in) :: a
+                complex dimension(:),intent(in) :: x
+                complex dimension(:) :: b
+            end function test_matmul2
         end module ndarraytest
     end interface 
 end python module ndarraytest
