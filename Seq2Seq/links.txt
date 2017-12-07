@@ -1,0 +1,4 @@
+http://suriyadeepan.github.io/2016-06-28-easy-seq2seq/
+https://blog.keras.io/building-autoencoders-in-keras.html
+https://github.com/stephenhky/seq2seq
+https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html
