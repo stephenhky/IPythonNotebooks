@@ -61,9 +61,9 @@ decoder_model = Model(
     [decoder_outputs] + decoder_states)
 
 # preparing training data
-encoder_input = chartovec_encoder.encode_sentences(text[:-1], startsig=True, maxlen=20, sparse=False)
-decoder_input = chartovec_encoder.encode_sentences(text[1:], startsig=True, maxlen=20, sparse=False)
-decoder_output = chartovec_encoder.encode_sentences(text[1:], endsig=True, maxlen=20, sparse=False)
+encoder_input = chartovec_encoder.encode_sentences(text[:-1], startsig=True, maxlen=100, sparse=False)
+decoder_input = chartovec_encoder.encode_sentences(text[1:], startsig=True, maxlen=100, sparse=False)
+decoder_output = chartovec_encoder.encode_sentences(text[1:], endsig=True, maxlen=100, sparse=False)
 
 # compile the model
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy')
