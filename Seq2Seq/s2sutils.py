@@ -45,6 +45,5 @@ def textfile_generator(textfile, linebreak=True):
 
 
 def initSentenceToCharVecEncoder(textfile):
-    # text = [t.strip()+'\n' for t in textfile if len(t) > 0]
     dictionary = Dictionary(map(lambda line: [c for c in line], textfile_generator(textfile)))
     return SentenceToCharVecEncoder(dictionary)
