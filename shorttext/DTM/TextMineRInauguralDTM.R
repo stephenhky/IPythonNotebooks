@@ -1,4 +1,5 @@
 
+library(dplyr)
 library(textmineR)
 library(SnowballC)
 
@@ -10,3 +11,7 @@ dtm<- CreateDtm(usprez.df$speech,
                 remove_punctuation = TRUE,
                 remove_numbers = TRUE,
                 stem_lemma_function = wordStem)
+
+dtm['2009-Obama',] %>% as.data.frame() %>% rename(count=".") %>% mutate(token=row.names(.)) %>% arrange(-count) %>% filter(count>0) %>% head(10)
+
+dtm[, wordStem('change')] %>% as.data.frame() %>% rename(count=".") %>% mutate(token=row.names(.)) %>% arrange(-count) %>% filter(count>0) %>% head(10)
