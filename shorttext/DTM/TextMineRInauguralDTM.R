@@ -12,6 +12,17 @@ dtm<- CreateDtm(usprez.df$speech,
                 remove_numbers = TRUE,
                 stem_lemma_function = wordStem)
 
-dtm['2009-Obama',] %>% as.data.frame() %>% rename(count=".") %>% mutate(token=row.names(.)) %>% arrange(-count) %>% filter(count>0) %>% head(10)
+get.doc.tokens<- function(dtm, docid) 
+  dtm[docid, ] %>% as.data.frame() %>% rename(count=".") %>% 
+  mutate(token=row.names(.)) %>% arrange(-count)
 
-dtm[, wordStem('change')] %>% as.data.frame() %>% rename(count=".") %>% mutate(token=row.names(.)) %>% arrange(-count) %>% filter(count>0) %>% head(10)
+get.token.docs<- function(dtm, token)
+  dtm[, token] %>% as.data.frame() %>% rename(count=".") %>% mutate(token=row.names(.)) %>% arrange(-count) 
+
+get.total.freq<- function(dtm, token) dtm[, token] %>% sum
+
+dtm %>% get.doc.tokens('2009-Obama') %>% head(10)
+
+dtm %>% get.token.docs(wordStem('change')) %>% head(10)
+
+dtm %>% get.total.freq(wordStem('change'))
