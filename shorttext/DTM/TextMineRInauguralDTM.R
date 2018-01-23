@@ -21,8 +21,14 @@ get.token.occurrences<- function(dtm, token)
 
 get.total.freq<- function(dtm, token) dtm[, token] %>% sum
 
+get.doc.freq<- function(dtm, token) 
+  dtm[, token] %>% as.data.frame() %>% rename(count=".") %>% 
+  filter(count>0) %>% pull(count) %>% length
+
 dtm %>% get.doc.tokens('2009-Obama') %>% head(10)
 
 dtm %>% get.token.occurrences(wordStem('change')) %>% head(10)
 
 dtm %>% get.total.freq(wordStem('change'))
+
+dtm %>% get.doc.freq(wordStem('change'))
