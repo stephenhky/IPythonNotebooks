@@ -2,5 +2,5 @@
 
 - Linear Regression
 - Logistic Regression
-- ConvNet
+- Autoencoder
 - LSTM
