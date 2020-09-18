@@ -10,7 +10,7 @@ class WrappedBERTEncoder:
     def __init__(self, model=None, tokenizer=None):
         if model is None:
             self.model = BertModel.from_pretrained('bert-base-uncased',
-                                                   output_hidden_state=True)
+                                                   output_hidden_states=True)
         else:
             self.model = model
 
@@ -52,6 +52,6 @@ class WrappedBERTEncoder:
         embeddings = torch.reshape(processed_embeddings, (len(sentences), 48, -1))
         embeddings = embeddings.detach().numpy()
 
-        return sentences_embeddings, embeddings
+        return sentences_embeddings, embeddings, tokenized_texts
 
 
