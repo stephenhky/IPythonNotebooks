@@ -1,8 +1,6 @@
 
 # reference: https://towardsdatascience.com/word-embeddings-in-2020-review-with-code-examples-11eb39a1ee6d
 
-import numpy as np
-import torch
 from simplerepresentations import RepresentationModel
 
 

@@ -1,7 +1,11 @@
 
 # reference: https://towardsdatascience.com/word-embeddings-in-2020-review-with-code-examples-11eb39a1ee6d
 
+from itertools import product
+
 import numpy as np
+from scipy.spatial.distance import cosine as cosine_distance
+import pandas as pd
 import torch
 from transformers import BertTokenizer, BertModel
 
@@ -55,3 +59,24 @@ class WrappedBERTEncoder:
         return sentences_embeddings, embeddings, tokenized_texts
 
 
+if __name__ == '__main__':
+    print('BERT Contextual Similarities')
+    sentence1 = input('Sentence 1? ')
+    sentence2 = input('Sentence 2? ')
+
+    print('Loading BERT encoder with default settings ...')
+    encoder = WrappedBERTEncoder()
+    sentences_embeddings, embeddings, tokenized_texts = encoder.encode_sentences([sentence1, sentence2])
+
+    # sentence similarity
+    sentence_similarity = 1-cosine_distance(sentences_embeddings[0], sentences_embeddings[1])
+    print('Cosine similarity between two sentences: {}'.format(sentence_similarity))
+
+    # token similarities
+    simmatrix = np.zeros((len(tokenized_texts[0]), len(tokenized_texts[1])))
+    for i, j in product(range(len(tokenized_texts[0])), range(len(tokenized_texts[1]))):
+        simmatrix[i, j] = 1 - cosine_distance(embeddings[0, i], embeddings[1, j])
+    simdf = pd.DataFrame(simmatrix)
+    simdf.columns = tokenized_texts[1]
+    simdf.index = tokenized_texts[0]
+    print(simdf)
