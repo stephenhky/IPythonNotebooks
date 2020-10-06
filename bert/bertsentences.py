@@ -1,6 +1,7 @@
 
 # reference: https://towardsdatascience.com/word-embeddings-in-2020-review-with-code-examples-11eb39a1ee6d
 
+import argparse
 from itertools import product
 
 import numpy as np
@@ -15,13 +16,21 @@ class WrappedBERTEncoder:
         if model is None:
             self.model = BertModel.from_pretrained('bert-base-uncased',
                                                    output_hidden_states=True)
-        else:
+        elif isinstance(model, BertModel):
             self.model = model
+        elif isinstance(model, str):
+            self.model = BertModel.from_pretrained(model, output_hidden_states=True)
+        else:
+            raise Exception('Invalid model.')
 
         if tokenizer is None:
             self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-        else:
+        elif isinstance(tokenizer, BertTokenizer):
             self.tokenizer = tokenizer
+        elif isinstance(tokenizer, str):
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer, do_lower_case=True)
+        else:
+            raise Exception('Invalid tokenizer.')
 
     def encode_sentences(self, sentences):
         input_ids = []
@@ -59,13 +68,24 @@ class WrappedBERTEncoder:
         return sentences_embeddings, embeddings, tokenized_texts
 
 
+def get_argparser():
+    argparser = argparse.ArgumentParser(description='Contextual similarity with BERT.')
+    argparser.add_argument('--model', default='bert-base-uncased', help='BERT model (default: "bert-case-uncase")')
+    return argparser
+
+
 if __name__ == '__main__':
+    argparser = get_argparser()
+    args = argparser.parse_args()
+    modelname = args.model
+
+    print('Loading BERT model...')
+    encoder = WrappedBERTEncoder(model=modelname, tokenizer=modelname)
+
     print('BERT Contextual Similarities')
     sentence1 = input('Sentence 1? ')
     sentence2 = input('Sentence 2? ')
 
-    print('Loading BERT encoder with default settings ...')
-    encoder = WrappedBERTEncoder()
     sentences_embeddings, embeddings, tokenized_texts = encoder.encode_sentences([sentence1, sentence2])
 
     # sentence similarity
