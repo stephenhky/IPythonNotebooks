@@ -1,0 +1,26 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module f90brownian ! in 
+    interface  ! in :f90brownian
+        module f90brownian ! in :f90brownian:brownian.f90
+            real, private,parameter,optional :: pi=3.141592653589793
+            real, private,parameter,optional,depend(pi) :: erfcoef3=0.2617993877991494
+            real, private,parameter,optional,depend(pi) :: erfcoef5=0.14393173084921979
+            real, private,parameter,optional,depend(pi) :: erfcoef7=0.09766361950392055
+            real, private,parameter,optional,depend(pi) :: erfcoef9=0.07329907936638086
+            real, private,parameter,optional,depend(pi) :: erfcoef11=0.058372500878584505
+            integer, private,dimension(1) :: iseed
+            function inv_errfcn(u) result (z) ! in :f90brownian:brownian.f90:f90brownian
+                real intent(in) :: u
+                real :: z
+            end function inv_errfcn
+            function normaldistsampling() result (z) ! in :f90brownian:brownian.f90:f90brownian
+                real :: z
+            end function normaldistsampling
+        end module f90brownian
+    end interface 
+end python module f90brownian
+
+! This file was auto-generated with f2py (version:1.20.2).
+! See http://cens.ioc.ee/projects/f2py2e/
